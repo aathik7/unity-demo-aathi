@@ -9,15 +9,6 @@
 
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
-            <form class="flex items-center" action="{{ route('inventory.index') }}" method="get">  
-                <div>
-                     <input type="text" autocomplete="off" id="searchItem"  class="form-input rounded-md shadow-sm mt-1 block w-full" name="filter[search]" placeholder="Search" value="{{request()->get('filter[search]')}}">
-                </div> 
-                <div>
-                    <input type="submit"  value="Reset" class="ml-6 cursor-pointer">
-                </div>
-            </form>
-              
             <div class="row">
                 <div class="block col-md-1 mb-4 flex items-center justify-end">
                     <a href="{{ route('tracking.edit') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">

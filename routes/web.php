@@ -25,6 +25,7 @@ Route::group(['prefix' => 'inventory'],function () {
     Route::post('/update', [InventoryController::class, 'update'])->name('inventory.update');
     Route::post('/destroy', [InventoryController::class, 'destroy'])->name('inventory.destroy');
     Route::get('/inventory-report', [InventoryController::class, 'report'])->name('inventory.report');
+    Route::get('/search', [InventoryController::class, 'search'])->name('inventory.search');
     Route::group(['prefix' => 'tracking'],function () {
         Route::get('/index', [TrackingController::class, 'index'])->name('tracking.index');
         Route::get('/edit', [TrackingController::class, 'edit'])->name('tracking.edit');

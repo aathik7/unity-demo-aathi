@@ -114,6 +114,14 @@ class InventoryController extends Controller
     /**
      * @return void
      */
+    public function search(Request $request)
+    {
+        return $this->inventoryService->search($request->all());
+    }
+
+    /**
+     * @return void
+     */
     public function report()
     {
         return Excel::download(new InventoryExport, 'inventory.xlsx');

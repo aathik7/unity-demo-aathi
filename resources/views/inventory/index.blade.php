@@ -126,6 +126,18 @@
             });
         }
     }
+
+    $('#searchItem').on('keyup',function() {
+        value = $(this).val();
+        $.ajax({
+            type: 'GET',
+            url: 'search',
+            data: '_token=<?php echo csrf_token() ?>'+'&key='+value,
+            success:function(data){
+                $('tbody').html(data);
+            }
+        });
+    });
 </script>
 
 
