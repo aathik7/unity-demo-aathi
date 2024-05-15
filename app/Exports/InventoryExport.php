@@ -15,7 +15,7 @@ class InventoryExport implements FromCollection, WithHeadings
     public function collection()
     {
         return DB::table('inventory_items')
-            ->select(DB::raw("item_name, description, price, quantity, CASE WHEN active_flag = 1 THEN 'Active' ELSE 'INACTIVE' END"))
+            ->select(DB::raw("item_name, description, price, quantity, CASE WHEN active_flag = 1 THEN 'Active' ELSE 'Inactive' END"))
             ->get();
     }
 
