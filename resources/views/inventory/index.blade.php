@@ -44,6 +44,9 @@
                                         {{__('Price')}}
                                     </th>
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs uppercase tracking-wider">
+                                        {{__('Image')}}
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs uppercase tracking-wider">
                                         {{__('Status')}}
                                     </th>
                                     <th scope="col" width="200" class="px-6 py-3 bg-gray-50 text-left text-xs uppercase tracking-wider">
@@ -60,6 +63,10 @@
 
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                             {{ $item->price }}
+                                        </td>
+
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <img src="{{$item->item_image}}" width="50" height="50">
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">

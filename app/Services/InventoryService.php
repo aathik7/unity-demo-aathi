@@ -27,7 +27,7 @@ class InventoryService
      */
     public function getItemList(): mixed
     {
-        return $this->inventoryItem->orderByDesc('active_flag')->orderByDesc('created_at')->get(['id', 'item_name', 'quantity', 'price', 'active_flag']);
+        return $this->inventoryItem->orderByDesc('active_flag')->orderByDesc('created_at')->get(['id', 'item_name', 'quantity', 'price', 'item_image', 'active_flag']);
     }
 
     /**
