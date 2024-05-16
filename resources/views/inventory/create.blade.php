@@ -43,6 +43,14 @@
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+                        <div class="px-4 py-2 bg-white sm:p-6">
+                            <label for="item_image" class="block font-medium text-sm text-gray-700">{{__('Image')}}</label>
+                            <input type="file" name="item_image" id="item_image" class="form-input rounded-md shadow-sm mt-1 block w-full"
+                                   value="{{ old('item_image', '') }}" required />
+                            @error('item_image')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
                         <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
                             

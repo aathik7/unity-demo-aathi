@@ -5,8 +5,8 @@ namespace App\Services;
 use App\Models\InventoryItem;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class InventoryService
 {
@@ -42,12 +42,14 @@ class InventoryService
     /*
      * Create new post
      *
-     * @param  Form Data
+     * @param $input
+     * @param $itemImage
      * @return Status
      */
-    public function store($input)
+    public function store($input, $itemImage)
     {
         try {
+            $input['item_image'] = $itemImage ?? null;
             $this->inventoryItem->create($input);
         } catch (\Exception $e) {
             Log::error($e);
@@ -56,17 +58,19 @@ class InventoryService
 
     /*
      *
-     * @param  Form Data
+     * @param $input
+     * @param $itemImage
      * @return Status
      */
-    public function update($input)
+    public function update($input, $itemImage)
     {
         try {
             $this->inventoryItem->where('id', $input['id'])->update([
                 'item_name' => $input['item_name'],
                 'description' => $input['description'],
                 'quantity' => $input['quantity'],
-                'price' => $input['price']
+                'price' => $input['price'],
+                'item_image' => $itemImage
             ]);
         } catch (\Exception $e) {
             Log::error($e);
@@ -90,7 +94,7 @@ class InventoryService
     */
     public function getDetails($id): mixed
     {
-        return $this->inventoryItem->where('id', $id)->first(['id', 'item_name', 'description', 'quantity', 'price', 'active_flag']);
+        return $this->inventoryItem->where('id', $id)->first(['id', 'item_name', 'description', 'quantity', 'price', 'item_image', 'active_flag']);
     }
 
     /**
@@ -130,6 +134,19 @@ class InventoryService
             }
         }
         return Response($output);
+    }
+
+    /**
+     * @param $fileObj
+     * @param $fileName
+     * @param string $folderName (optional)
+     * @return string
+     */
+    public function fileUpload($fileObj, $fileName, $folderName = '')
+    {
+        $s3disk = Storage::disk('s3');
+        $s3disk->put($folderName . $fileName, file_get_contents($fileObj), 'public');
+        return $s3disk->url($folderName . $fileName);
     }
 
 }

@@ -13,6 +13,8 @@ use Maatwebsite\Excel\Facades\Excel;
 class InventoryController extends Controller
 {
     protected InventoryService $inventoryService;
+    protected $itemImageName;
+    protected $s3FolderName;
 
     /**
      * InventoryController's Constructor
@@ -22,6 +24,8 @@ class InventoryController extends Controller
     function __construct(InventoryService $inventoryService)
     {
         $this->inventoryService = $inventoryService;
+        $this->itemImageName = 'item_image_' . time();
+        $this->s3FolderName = '/items/';
     }
 
     /**
@@ -56,7 +60,12 @@ class InventoryController extends Controller
         if ($validator->fails()) {
             return Redirect::route('inventory.index')->withErrors($validator);
         }
-        $this->inventoryService->store($request->all());
+        $itemImage = '';
+        if (isset($request->item_image)) {
+            $this->itemImageName = $this->itemImageName . '.' . $request->item_image->getClientOriginalExtension();
+            $itemImage = $this->inventoryService->fileUpload($request->item_image, $this->itemImageName, $this->s3FolderName);
+        }
+        $this->inventoryService->store($request->all(), $itemImage);
         return redirect()->route('inventory.index')->with('success','Item created successfully.');
     }
 
@@ -93,7 +102,12 @@ class InventoryController extends Controller
         if ($validator->fails()) {
             return Redirect::route('inventory.index')->withErrors($validator);
         }
-        $this->inventoryService->update($request->all());
+        $itemImage = $request->old_item_image;
+        if (isset($request->item_image)) {
+            $this->itemImageName = $this->itemImageName . '.' . $request->item_image->getClientOriginalExtension();
+            $itemImage = $this->inventoryService->fileUpload($request->item_image, $this->itemImageName, $this->s3FolderName);
+        }
+        $this->inventoryService->update($request->all(), $itemImage);
         return redirect()->route('inventory.index')->with('success','Item Updated successfully.');
     }
 

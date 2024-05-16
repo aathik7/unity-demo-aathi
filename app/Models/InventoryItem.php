@@ -16,5 +16,5 @@ class InventoryItem extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['item_name', 'description', 'quantity', 'price'];
+    protected $fillable = ['item_name', 'description', 'quantity', 'price', 'item_image'];
 }

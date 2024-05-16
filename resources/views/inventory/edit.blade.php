@@ -10,6 +10,7 @@
             <div class="mt-5 md:mt-0 md:col-span-2">
                 <form method="POST" action="{{ route('inventory.update') }}" enctype="multipart/form-data"  autocomplete="off">
                     <input type="hidden" name="id" value="{{ $item['id'] }}">
+                    <input type="hidden" name="old_item_image" value="{{ $item['item_image'] }}">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md">
                         <div class="px-4 py-2 bg-white sm:p-6">
@@ -41,6 +42,15 @@
                             <input type="text" name="price" id="price" value="{{ $item['price'] }}" class="form-input rounded-md shadow-sm mt-1 block w-full"
                                    value="{{ old('name', '') }}" required />
                             @error('price')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="px-4 py-2 bg-white sm:p-6">
+                            <label for="item_image" class="block font-medium text-sm text-gray-700">{{__('Image')}}</label>
+                            <input type="file" name="item_image" id="item_image" class="form-input rounded-md shadow-sm mt-1 block w-full"
+                                   value="{{ old('item_image', '') }}" required />
+                            @error('item_image')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
